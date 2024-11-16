@@ -1,20 +1,25 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_project/Screens/Auth/Login/register_controller.dart';
 import 'package:responsive_project/Utils/app_colors.dart';
-import 'package:responsive_project/Utils/app_images.dart';
+import 'package:responsive_project/Widgets/input_fields.dart';
 import 'package:responsive_project/Widgets/responsive_widget.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final controller = Get.put(RegistrationController());
+
   int _currentIndex = 0;
   void callbackFunction(int index, CarouselPageChangedReason reason) {
     setState(() {
@@ -22,15 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  var sliderList = [
-    AppImages.sliderOne,
-    AppImages.sliderTwo,
-    AppImages.sliderThree
-  ];
+  @override
+  void dispose() {
+    Get.delete<RegistrationController>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFF645f75),
       body: SafeArea(
@@ -64,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPageChanged: callbackFunction,
                             scrollDirection: Axis.horizontal,
                           ),
-                          items: sliderList
+                          items: controller.sliderList
                               .map((i) => SingleOfferBanner(
                                     image: i,
                                   ))
@@ -163,28 +167,151 @@ class _LoginScreenState extends State<LoginScreen> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.cinzel(
                               color: whiteColor,
-                              fontSize: size.width * 0.02,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w500),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Already have an account?  ',
+                            style: GoogleFonts.mukta(color: grayColor),
+                            children: [
+                              TextSpan(
+                                text: 'Log in',
+                                style: GoogleFonts.mukta(
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    color: primaryColor),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // Handle the redirection logic here
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
                         ),
                         Row(
                           children: [
-                            Text(
-                              "Already have an account?",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.cinzel(
-                                  color: whiteColor,
-                                  fontSize: size.width * 0.3,
-                                  fontWeight: FontWeight.w500),
+                            Expanded(
+                              child: LoginTextField(
+                                controllerValue: controller.ctlFirstName.value,
+                                hintText: 'First Name',
+                                inputType: TextInputType.name,
+                                validate: (val) {
+                                  if (val!.isEmpty) {
+                                    return "Cant be Empty.";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                              ),
                             ),
-                            Text(
-                              "Log in",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.cinzel(
-                                  color: whiteColor,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: LoginTextField(
+                                controllerValue: controller.ctlLastName.value,
+                                hintText: 'Last Name',
+                                inputType: TextInputType.name,
+                                validate: (val) {
+                                  if (val!.isEmpty) {
+                                    return "Cant be Empty.";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                              ),
                             ),
                           ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        LoginTextField(
+                          controllerValue: controller.ctlEmail.value,
+                          hintText: 'Email',
+                          inputType: TextInputType.emailAddress,
+                          validate: (val) {
+                            if (val!.isEmpty) {
+                              return "Cant be Empty.";
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Obx(
+                          () => LoginTextField(
+                            obsText: controller.showHidePass.value,
+                            controllerValue: controller.ctlPassword.value,
+                            hintText: 'Enter your password here...',
+                            inputType: TextInputType.visiblePassword,
+                            suf: Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: InkWell(
+                                  onTap: () =>
+                                      controller.onChangeShowHidePass(),
+                                  child: Icon(
+                                    controller.showHidePass.value
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    size: 20,
+                                    color: grayColor,
+                                  )),
+                            ),
+                            validate: (val) {
+                              if (val!.isEmpty) {
+                                return "Cant be Empty.";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        InkWell(
+                          onTap: () => controller.onChangeCheckBox(),
+                          child: Row(
+                            children: [
+                              Obx(
+                                () => Checkbox(
+                                    value: controller.agreeTerms.value,
+                                    onChanged: (val) =>
+                                        controller.onChangeCheckBox()),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'I agree to the ',
+                                  style: GoogleFonts.mukta(color: whiteColor),
+                                  children: [
+                                    TextSpan(
+                                      text: 'Terms and Conditions',
+                                      style: GoogleFonts.mukta(
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: primaryColor,
+                                          fontWeight: FontWeight.w500,
+                                          color: primaryColor),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          // Handle the redirection logic here
+                                        },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
