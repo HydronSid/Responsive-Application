@@ -2,11 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_project/Screens/Auth/Login/register_controller.dart';
 import 'package:responsive_project/Utils/app_colors.dart';
+import 'package:responsive_project/Utils/app_constants.dart';
 import 'package:responsive_project/Widgets/input_fields.dart';
 import 'package:responsive_project/Widgets/responsive_widget.dart';
 
@@ -83,7 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             style: GoogleFonts.cinzel(
                                 letterSpacing: 4,
                                 color: whiteColor,
-                                fontSize: 25),
+                                fontSize: getResponsiveTextSize(context, 20)),
                           ),
                         ),
                         Positioned(
@@ -167,7 +167,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.cinzel(
                               color: whiteColor,
-                              fontSize: 15.sp,
+                              fontSize: getResponsiveTextSize(context, 16),
                               fontWeight: FontWeight.w500),
                         ),
                         RichText(
