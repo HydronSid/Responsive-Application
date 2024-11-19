@@ -6,4 +6,7 @@ class AppImages {
   static const sliderFive = "assets/images/slider_five.jpg";
   static const sliderSix = "assets/images/slider_six.jpg";
   static const googleImage = "assets/images/google.png";
+  static const homeSliderOne = "assets/images/home_slider_one.jpg";
+  static const homeSliderTwo = "assets/images/home_slider_two.jpg";
+  static const homeSliderThree = "assets/images/home_slider_three.jpg";
 }

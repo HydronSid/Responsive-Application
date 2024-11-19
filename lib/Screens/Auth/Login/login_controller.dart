@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_project/Utils/app_images.dart';
+import 'package:responsive_project/Utils/route_names.dart';
 
 class LoginController extends GetxController {
   GlobalKey<FormState> loginKey = GlobalKey();
@@ -22,6 +23,8 @@ class LoginController extends GetxController {
     if (!isValid) {
       return;
     }
+
+    Get.offAllNamed(RouteNames.homeScreen);
   }
 
   @override

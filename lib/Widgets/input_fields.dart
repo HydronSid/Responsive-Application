@@ -208,40 +208,48 @@ class SearchTextField extends StatelessWidget {
         onChanged: onChanged,
         style: textStyle ??
             GoogleFonts.mukta(
-              fontSize: 14,
+              fontSize: getResponsiveTextSize(context, 10),
             ),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: GoogleFonts.mukta(
-            fontSize: 14,
+            fontSize: getResponsiveTextSize(context, 10),
           ),
-          prefixIcon: const Icon(
-            Icons.search,
-            color: Colors.black,
+          suffixIcon: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.search,
+                color: accentColor,
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ],
           ),
-          contentPadding: EdgeInsets.zero,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(color: borderColor),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(color: borderColor),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: focusedBorderColor, width: 1.8),
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(color: focusedBorderColor, width: 1.3),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(color: errorBorderColor),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(color: errorBorderColor),
           ),
           filled: true,
-          fillColor: fillColor,
+          fillColor: Colors.grey[50],
         ),
       ),
     );
