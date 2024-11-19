@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_project/Utils/app_images.dart';
 
-class RegistrationController extends GetxController {
-  Rx<TextEditingController> ctlFirstName = TextEditingController().obs;
-  Rx<TextEditingController> ctlLastName = TextEditingController().obs;
+class LoginController extends GetxController {
+  GlobalKey<FormState> loginKey = GlobalKey();
   Rx<TextEditingController> ctlEmail = TextEditingController().obs;
   Rx<TextEditingController> ctlPassword = TextEditingController().obs;
 
@@ -17,13 +16,16 @@ class RegistrationController extends GetxController {
   RxBool showHidePass = true.obs;
   onChangeShowHidePass() => showHidePass.value = !showHidePass.value;
 
-  RxBool agreeTerms = false.obs;
-  onChangeCheckBox() => agreeTerms.value = !agreeTerms.value;
+  login() {
+    final isValid = loginKey.currentState!.validate();
+
+    if (!isValid) {
+      return;
+    }
+  }
 
   @override
   void dispose() {
-    ctlFirstName.value.dispose();
-    ctlLastName.value.dispose();
     ctlEmail.value.dispose();
     ctlPassword.value.dispose();
     super.dispose();

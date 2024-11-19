@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_project/Utils/app_colors.dart';
+import 'package:responsive_project/Utils/app_constants.dart';
 
 class LoginTextField extends StatelessWidget {
   final TextEditingController? controllerValue;
@@ -35,7 +36,8 @@ class LoginTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       onChanged: onChange,
-      style: GoogleFonts.mukta(fontSize: 14, color: whiteColor),
+      style: GoogleFonts.mukta(
+          fontSize: getResponsiveTextSize(context, 10), color: whiteColor),
       cursorColor: primaryColor,
       readOnly: rOnly!,
       textInputAction: actionNext,
@@ -57,7 +59,7 @@ class LoginTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: GoogleFonts.mukta(
             color: grayColor,
-            fontSize: 12,
+            fontSize: getResponsiveTextSize(context, 10),
             letterSpacing: 1,
           ),
           enabledBorder: OutlineInputBorder(
@@ -72,7 +74,9 @@ class LoginTextField extends StatelessWidget {
           errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Colors.red)),
-          labelStyle: GoogleFonts.mukta(fontSize: 14, color: Colors.black87)),
+          labelStyle: GoogleFonts.mukta(
+              fontSize: getResponsiveTextSize(context, 10),
+              color: Colors.black87)),
     );
   }
 }

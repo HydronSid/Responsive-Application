@@ -4,5 +4,8 @@ const whiteColor = Colors.white;
 const blackColor = Colors.black87;
 const transparentColor = Colors.transparent;
 const grayColor = Colors.grey;
+const backgroundColor = Color(0xFF645f75);
+const backgroundColorTwo = Color.fromARGB(255, 194, 185, 224);
 
 const primaryColor = Color.fromARGB(255, 166, 154, 212);
+const accentColor = Color(0xFF6e54b5);

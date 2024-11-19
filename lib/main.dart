@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'Screens/Auth/Login/register_screen.dart';
+import 'package:responsive_project/Utils/route_names.dart';
+import 'Screens/Auth/Register/register_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const RegistrationScreen(),
+      getPages: AppRoute.appRoutes(),
     );
   }
 }
